@@ -1,0 +1,64 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "Book 1",
+      "author": "Author 1",
+      "thumbnail": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 2,
+      "title": "Book 2",
+      "author": "Author 2",
+      "thumbnail": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 3,
+      "title": "Book 3",
+      "author": "Author 3",
+      "thumbnail": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 4,
+      "title": "Book 4",
+      "author": "Author 4",
+      "thumbnail": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 5,
+      "title": "Book 5",
+      "author": "Author 5",
+      "thumbnail": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 6,
+      "title": "Book 6",
+      "author": "Author 6",
+      "thumbnail": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 7,
+      "title": "Book 7",
+      "author": "Author 7",
+      "thumbnail": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 8,
+      "title": "Book 8",
+      "author": "Author 8",
+      "thumbnail": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 9,
+      "title": "Book 9",
+      "author": "Author 9",
+      "thumbnail": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 10,
+      "title": "Book 10",
+      "author": "Author 10",
+      "thumbnail": "https://via.placeholder.com/150"
+    }
+  ]
+}
