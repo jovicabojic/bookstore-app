@@ -4,7 +4,7 @@
       <div class="row page-header">
         <div class="col-sm-6">
           <h5 class="q-my-none">
-            {{ store.book.title }}
+            {{ title }}
           </h5>
         </div>
         <div class="col-md-6 flex justify-end items-center" />
@@ -20,25 +20,25 @@
                 <q-item>
                   <q-item-section>
                     <q-item-label class='q-pb-xs'>Title</q-item-label>
-                    <q-input dense outlined v-model='store.book.title'/>
+                    <q-input dense outlined v-model='title'/>
                   </q-item-section>
                 </q-item>
                 <q-item>
                   <q-item-section>
                     <q-item-label class='q-pb-xs'>Author name</q-item-label>
-                    <q-input dense outlined v-model='store.book.authorName'/>
+                    <q-input dense outlined v-model='authorName'/>
                   </q-item-section>
                 </q-item>
                 <q-item>
                   <q-item-section>
                     <q-item-label class='q-pb-xs'>Release date</q-item-label>
-                    <q-input dense outlined v-model='store.book.releaseDate'/>
+                    <q-input dense outlined v-model='releaseDate'/>
                   </q-item-section>
                 </q-item>
                 <q-item>
                   <q-item-section>
                     <q-item-label class='q-pb-xs'>Genre</q-item-label>
-                    <q-input dense outlined v-model='store.book.genre' />
+                    <q-input dense outlined v-model='genre' />
                   </q-item-section>
                 </q-item>
                 <q-item class="q-mt-md">
@@ -66,7 +66,6 @@
               <q-btn
                 label='Update'
                 color='primary'
-                rounded
                 class="text-capitalize"
                 @click='editItem'
               ></q-btn>
@@ -79,7 +78,7 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { booksStore } from 'stores/modules/books'
 const route = useRoute()
@@ -87,12 +86,54 @@ const id = route.params.id
 const store = booksStore()
 
 onMounted(() => {
-  store.fetchBook(id)
+  store.fetchBookEdit(id)
+})
+
+const title = computed({
+  get () {
+    return store.bookEdit.title
+  },
+  set (newValue) {
+    store.setBookEdit({ ...store.bookEdit, title: newValue })
+  }
+})
+
+const authorName = computed({
+  get () {
+    return store.bookEdit.authorName
+  },
+  set (newValue) {
+    store.setBookEdit({ ...store.bookEdit, authorName: newValue })
+  }
+})
+
+const releaseDate = computed({
+  get () {
+    return store.bookEdit.releaseDate
+  },
+  set (newValue) {
+    store.setBookEdit({ ...store.bookEdit, relaseDate: newValue })
+  }
+})
+
+const genre = computed({
+  get () {
+    return store.bookEdit.genre
+  },
+  set (newValue) {
+    store.setBookEdit({ ...store.bookEdit, genre: newValue })
+  }
 })
 
 async function editItem () {
+  const formData = {
+    title: title.value,
+    authorName: authorName.value,
+    releaseDate: releaseDate.value,
+    genre: genre.value
+  }
   try {
-    await store.updateBook(id, store.book)
+    await store.updateBook(id, formData)
   } catch (error) {
     console.log(error)
   }

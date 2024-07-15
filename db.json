@@ -6,7 +6,7 @@
       "title": "Oliver Twist",
       "coverImage": "https://via.placeholder.com/150",
       "pages": 234,
-      "releaseDate": "18392",
+      "releaseDate": "1839",
       "isbn": "wt345",
       "genre": "Fiction"
     },
@@ -28,8 +28,7 @@
       "pages": 160,
       "releaseDate": "1603",
       "isbn": "po789",
-      "genre": "Tragedy",
-      "body": "{}"
+      "genre": "Tragedy"
     },
     {
       "id": "4",

@@ -7,7 +7,7 @@
       bordered
       class="bg-primary overflow-auto"
     >
-      <div class="logo-wrap flex items-center justify-end q-pr-lg">
+      <div class="logo-wrap flex items-center justify-center">
         <img
           alt="Bookstore logo"
           src="~assets/quasar-logo-vertical.svg"
@@ -52,22 +52,12 @@ export default defineComponent({
 }
 
 .logo-wrap {
-  height: 90px;
+  height: 60px;
   background: white;
   position: relative;
-
-  &:after {
-    content: '';
-    height: 62px;
-    width: 1px;
-    background: #DEDEDE;
-    position: absolute;
-    right: 0;
-    top: calc(50% - 31px);
-  }
 }
 
 .q-header {
-  height: 91px;
+  height: 60px;
 }
 </style>

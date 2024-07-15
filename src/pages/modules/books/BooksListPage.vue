@@ -5,7 +5,6 @@
       <q-btn class='text-capitalize q-px-lg'
              color='primary'
              label='Add book'
-             rounded
              @click='showCreateDialog = true'></q-btn>
     </div>
     <div class='q-pt-sm'>
@@ -87,14 +86,12 @@
                   class="text-capitalize"
                   label='Cancel'
                   color='negative'
-                  rounded
                   v-close-popup
                 ></q-btn>
                 <q-btn
                   class="text-capitalize"
                   label='Save'
                   color='primary'
-                  rounded
                   v-close-popup
                   @click='createBook'
                 ></q-btn>
