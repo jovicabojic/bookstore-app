@@ -21,14 +21,14 @@
           <template v-slot:top-right>
             <q-input square outlined dense debounce='300' v-model='filter'>
               <template v-slot:append>
-                <q-icon name='search' />
+                <q-icon name='search'/>
               </template>
             </q-input>
           </template>
-          <template v-slot:body-cell-cover_image="props">
+          <template v-slot:body-cell-coverImage="props">
             <q-td :props="props">
               <q-img
-                :src="props.row.cover_image"
+                :src="props.row.coverImage"
                 :ratio="1"
                 width="40px"
               />
@@ -36,8 +36,10 @@
           </template>
           <template v-slot:body-cell-action="props">
             <q-td :props="props">
-              <q-btn dense flat round size="12px" color="dark" field="edit" @click="editBook(props.row.id)" icon="edit"></q-btn>
-              <q-btn dense flat round size="12px" color="dark" field="edit" @click="dialogConfirm(props.row)" icon="delete"></q-btn>
+              <q-btn dense flat round size="12px" color="dark" field="edit" @click="editBook(props.row.id)"
+                     icon="edit"></q-btn>
+              <q-btn dense flat round size="12px" color="dark" field="edit" @click="dialogConfirm(props.row)"
+                     icon="delete"></q-btn>
             </q-td>
           </template>
         </q-table>
@@ -61,19 +63,19 @@
                   <q-item>
                     <q-item-section>
                       <q-item-label class='q-pb-xs'>Author name</q-item-label>
-                      <q-input dense outlined v-model='defaultItem.author_name' />
+                      <q-input dense outlined v-model='defaultItem.authorName'/>
                     </q-item-section>
                   </q-item>
                   <q-item>
                     <q-item-section>
                       <q-item-label class='q-pb-xs'>Release date</q-item-label>
-                      <q-input dense outlined v-model='defaultItem.releaseDate' />
+                      <q-input dense outlined v-model='defaultItem.releaseDate'/>
                     </q-item-section>
                   </q-item>
                   <q-item>
                     <q-item-section>
                       <q-item-label class='q-pb-xs'>Genre</q-item-label>
-                      <q-input dense outlined v-model='defaultItem.genre' />
+                      <q-input dense outlined v-model='defaultItem.genre'/>
                     </q-item-section>
                   </q-item>
                 </q-list>
@@ -108,8 +110,9 @@
             </q-card-section>
 
             <q-card-actions align='right'>
-              <q-btn label='Cancel' color='negative' rounded class="text-capitalize" v-close-popup />
-              <q-btn label='Delete' color='primary' @click='deleteBook(editedItem.id)' rounded class="text-capitalize" v-close-popup />
+              <q-btn label='Cancel' color='negative' rounded class="text-capitalize" v-close-popup/>
+              <q-btn label='Delete' color='primary' @click='deleteBook(editedItem.id)' rounded class="text-capitalize"
+                     v-close-popup/>
             </q-card-actions>
           </q-card>
         </q-dialog>
@@ -118,7 +121,7 @@
   </q-page>
 </template>
 
-<script>
+<script setup>
 const columns = [
   {
     name: 'title',
@@ -127,75 +130,91 @@ const columns = [
     field: row => row.title,
     sortable: true
   },
-  { name: 'author', align: 'center', label: 'Author name', field: 'author_name' },
-  { name: 'release', align: 'center', label: 'Release date', field: 'releaseDate' },
-  { name: 'genre', align: 'center', label: 'Genre', field: 'genre' },
-  { name: 'cover_image', align: 'center', label: 'Cover image', field: 'cover_image' },
-  { name: 'action', align: 'right', label: 'Actions', field: '' }
+  {
+    name: 'author',
+    align: 'center',
+    label: 'Author name',
+    field: 'authorName'
+  },
+  {
+    name: 'release',
+    align: 'center',
+    label: 'Release date',
+    field: 'releaseDate'
+  },
+  {
+    name: 'genre',
+    align: 'center',
+    label: 'Genre',
+    field: 'genre'
+  },
+  {
+    name: 'coverImage',
+    align: 'center',
+    label: 'Cover image',
+    field: 'coverImage'
+  },
+  {
+    name: 'action',
+    align: 'right',
+    label: 'Actions',
+    field: ''
+  }
 ]
 
-import { defineComponent, onMounted, ref, reactive, toRaw } from 'vue'
+import { onMounted, ref, reactive, toRaw } from 'vue'
 import { booksStore } from 'stores/modules/books'
 import { useRouter } from 'vue-router'
 
-export default defineComponent({
-  name: 'BooksListPage',
-  setup () {
-    const router = useRouter()
-    const store = booksStore()
-    onMounted(() => {
-      store.fetchAllBooks()
-    })
-    const defaultItem = reactive({
-      title: '',
-      author_name: '',
-      releaseDate: '',
-      genre: ''
-    })
-    function editBook (id) {
-      router.push({
-        name: 'BookView',
-        params: { id }
-      })
-    }
-    async function createBook () {
-      const item = toRaw(defaultItem)
-      try {
-        await store.createBook(item)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    function dialogConfirm (item) {
-      this.showDeleteConfirmDialog = true
-      this.editedItem = { ...item }
-    }
-    async function deleteBook (id) {
-      try {
-        await store.deleteBook(id)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    return {
-      defaultItem,
-      filter: ref(''),
-      columns,
-      store,
-      editedItem: defaultItem,
-      showCreateDialog: ref(false),
-      showEditDialog: ref(false),
-      showDeleteConfirmDialog: ref(false),
-      createBook,
-      dialogConfirm,
-      deleteBook,
-      initialPagination: {
-        sortBy: 'desc',
-        descending: false,
-        rowsPerPage: 10
-      },
-      editBook
-    }
+const router = useRouter()
+const store = booksStore()
+
+const showCreateDialog = ref(false)
+const showDeleteConfirmDialog = ref(false)
+const filter = ref('')
+const defaultItem = reactive({
+  title: '',
+  authorName: '',
+  releaseDate: '',
+  genre: ''
+})
+
+const initialPagination = {
+  sortBy: 'desc',
+  descending: false,
+  rowsPerPage: 10
+}
+
+const editBook = (id) => {
+  router.push({
+    name: 'BookView',
+    params: { id }
+  })
+}
+
+const editedItem = ref({})
+const createBook = async () => {
+  const item = toRaw(defaultItem)
+  try {
+    await store.createBook(item)
+  } catch (error) {
+    console.log(error)
   }
+}
+const dialogConfirm = async (item) => {
+  showDeleteConfirmDialog.value = true
+  editedItem.value = { ...item }
+}
+
+async function deleteBook (id) {
+  try {
+    await store.deleteBook(id)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+onMounted(() => {
+  store.fetchAllBooks()
 })
 </script>

@@ -20,7 +20,7 @@ export const booksStore = defineStore('books', {
     async fetchBook (bookId) {
       try {
         const response = await api.get(`/books?id=${bookId}`)
-        this.book = response.data
+        this.book = response.data[0]
       } catch (error) {
         console.error(error)
       }
@@ -43,7 +43,7 @@ export const booksStore = defineStore('books', {
     },
     async updateBook (bookId, payload) {
       try {
-        const response = await api.put(`/books/${bookId}`, payload)
+        const response = await api.patch(`/books/${bookId}`, payload)
         this.book = response.data
       } catch (error) {
         console.error(error)
