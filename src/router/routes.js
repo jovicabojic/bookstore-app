@@ -3,12 +3,33 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/IndexPage.vue') }
+      {
+        name: 'Dashboard',
+        path: '/',
+        meta: {
+          title: 'Dashboard - BookStore'
+        },
+        component: () => import('pages/DashboardPage.vue')
+      },
+      {
+        path: '/books',
+        meta: {
+          title: 'Books - BookStore'
+        },
+        children: [
+          { path: '', component: () => import('pages/modules/books/BooksListPage.vue') },
+          {
+            path: '/books/view/:id',
+            name: 'BookView',
+            component: () => import('pages/modules/books/BookView.vue'),
+            meta: {
+              title: 'Edit Book - BooksStore'
+            }
+          }
+        ]
+      }
     ]
   },
-
-  // Always leave this as last one,
-  // but you can also remove it
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue')
